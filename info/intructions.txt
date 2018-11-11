@@ -1,0 +1,15 @@
+
+
+$ program must handle 1 to n files as parameters.
+
+$ When your program receives more than one map in argument, each solution or error
+must be followed by a line break.
+
+$ Should there be no passed arguments, your program must be able to read on the
+standard input.
+
+$ exit, open, close, write, read, malloc and free.
+
+$ all optimisation points
+
+$ faster the execution, and/or the the least used memory

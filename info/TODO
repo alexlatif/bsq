@@ -1,0 +1,53 @@
+
+
+// FUNCTIONS TO WRITE
+fgets
+fopen
+fclose
+atoi
+printf
+realloc
+
+// BOARD CHECK
+// valid info
+// https://github.com/ronanboiteau/BSQ/blob/master/src/check_file.c
+// _get_board_info
+// _get_board_matrix
+
+// EXIT
+// https://github.com/ronanboiteau/BSQ/blob/master/src/exit.c
+// write prog_exit
+// free content
+
+
+
+//LINE_BY_LINE
+	// while ( fgets ( line_buff, sizeof line_buff, fp ) != NULL ) /* read a line_buff */
+	// {
+	// 	printf("Data from the file: %s\n", line_buff); /* write the line */
+	// }
+
+
+/// READ LINE BY LINE
+
+	FILE *file = fopen ( filename, "r" );
+	int i, 
+	int	j;
+	char arra[128][128];
+	char line[128]; /* or other suitable maximum line size */
+	for(i=0; i<128; i++)
+	    for(j=0; j<128; j++)
+	        arra[j] = '\0';
+	        for(i=0; i<128; i++)
+	            line = '\0';
+	            if ( file != NULL )
+	            {
+                    i=0;
+                    while ( fgets ( line, sizeof line, file ) != NULL ) /* read a line */
+                    {
+                    strcpy(arra, line);
+                    printf("array ----> %s ", &arra);
+                    i++;
+                }
+
+// fscanf(fp,"%[^\n]", buffer); -> scan new line
