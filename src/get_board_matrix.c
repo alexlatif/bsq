@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "board_info.h"
+#include "utils.h"
 
 char		*_create_arr_line(char *data)
 {
@@ -16,7 +17,7 @@ char		*_create_arr_line(char *data)
 	len = (len + 1);
 	end = len;
 	if (!(res = malloc(sizeof(char) * end)))
-		return NULL; // ERR in allocating line memory
+		ft_exit(12, ERR_MALLOC_BOARD_ROW);
 	while (len--)
 		res[len] = data[len];
 	res[end] = '\0';
@@ -41,10 +42,10 @@ char		**get_board_matrix(char *file, int lines)
 	int		skip;
 
 	if (! (board = malloc(sizeof(char*) * lines)))
-		return NULL; // ERR
+		ft_exit(12, ERR_MALLOC_BOARD);
 	fp = fopen(file, "r");
 	if (fp == NULL)
-		return NULL; // ERR
+		ft_exit(12, ERR_FILE_BOARD);
 	i = 0;
 	skip = 0;
 	while ( fgets ( line_buff, sizeof line_buff, fp ) != NULL )

@@ -31,7 +31,7 @@ int			check_valid_board(char **board, t_board *board_info)
 	while (board[lines])
 		lines++;
 	if (board_info->lines != lines)
-		return (0); // ERR board lines
+		return (0);
 	while (board[0][len] != '\0')
 		len++;
 	while (lines--)
@@ -45,7 +45,7 @@ int			check_valid_board(char **board, t_board *board_info)
             i++;
         }
 		if (len != i + 1)
-			return (0); // ERR board cols
+			return (0);
 	}
 	return (1);
 }
