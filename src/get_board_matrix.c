@@ -22,6 +22,23 @@ char		*_create_arr_line(char *data)
 	return (res);
 }
 
+int			check_valid_top_line(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] >= 33 && str[i] <= 126)
+		i++;
+	printf("i: %d\n", i);
+	if (i != 4)
+		return (0);
+	if (atoi(&str[0]) < 1)
+		return (0);
+	if (str[1] == str[2] || str[1] == str[3] || str[2] == str[3])
+		return (0);
+	return (1);
+}
+
 void		print_board(char **board)
 {
 	int		i;
