@@ -9,16 +9,15 @@ printf
 realloc
 
 
-
-Should there be no passed arguments, your program must be able to read on the
+- Should there be no passed arguments, your program must be able to read on the
 standard input
 
+- get rid of printf
 
-//BOARD CHECK
-valid info
-https://github.com/ronanboiteau/BSQ/blob/master/src/check_file.c
-_get_board_info
-_get_board_matrix
+- FREE
+
+- NORM
+
 
 //EXIT
 https://github.com/ronanboiteau/BSQ/blob/master/src/exit.c
@@ -31,3 +30,7 @@ free content
 
 // done
 valid file check
+valid map check
+
+
+
