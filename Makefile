@@ -14,6 +14,7 @@ CFLAGS	+= -Wall -Wextra -ansi
 
 SRCS_DIR		= src/
 SRCS_FILES		= get_board_matrix.c	\
+				check_board_matrix.c	\
 				main.c
 SRCS		= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 

@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include "board.h"
+#include "board_methods.h"
+#include "board_info.h"
 
 int		_find_filepath(int ac, char **av)
 {
@@ -34,7 +35,6 @@ t_board	*_get_board_info(char *file)
         return NULL; // ERR
 	fgets ( line_buff, sizeof line_buff, fp );
 	str = &line_buff[0];
-	// FIXME: if string is not len 4 and first in not num
 	if (!check_valid_top_line(str))
 		return NULL; // ERR
 	board_info->lines = atoi(&str[0]);
@@ -85,6 +85,8 @@ int     main(int ac, char **av)
 
 	// 3) get board matrix
 	board = get_board_matrix(av[file_indx], board_info->lines);
+	if (!check_valid_board(board, board_info))
+		return (0);
 	printf("New Board\n");
 	print_board(board);
 

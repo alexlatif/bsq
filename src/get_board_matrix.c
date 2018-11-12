@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "board_info.h"
 
 char		*_create_arr_line(char *data)
 {
@@ -15,28 +16,11 @@ char		*_create_arr_line(char *data)
 	len = (len + 1);
 	end = len;
 	if (!(res = malloc(sizeof(char) * end)))
-		return NULL; // ERR
+		return NULL; // ERR in allocating line memory
 	while (len--)
 		res[len] = data[len];
 	res[end] = '\0';
 	return (res);
-}
-
-int			check_valid_top_line(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] >= 33 && str[i] <= 126)
-		i++;
-	printf("i: %d\n", i);
-	if (i != 4)
-		return (0);
-	if (atoi(&str[0]) < 1)
-		return (0);
-	if (str[1] == str[2] || str[1] == str[3] || str[2] == str[3])
-		return (0);
-	return (1);
 }
 
 void		print_board(char **board)
@@ -44,13 +28,8 @@ void		print_board(char **board)
 	int		i;
 
 	i = 0;
-	if (board[i] == 0)
-		printf("EMPTY BOARD\n");
-	else
-	{
-		while (board[i] != 0)
-			printf("%s\n", board[i++]);
-	}
+	while (board[i] != 0)
+		printf("%s\n", board[i++]);
 }
 
 char		**get_board_matrix(char *file, int lines)
