@@ -1,36 +1,65 @@
 
-
+//BACKLOG
 // FUNCTIONS TO WRITE
 fgets
 fopen
 fclose
-atoi
-printf
-realloc
+
+
+realloc str in get_board_matrix
 
 
 - Should there be no passed arguments, your program must be able to read on the
 standard input
-
-- get rid of printf
 
 - FREE
 
 - NORM
 
 
+
+
+
+
+
+
+
+
+RE ALLOC - create board;
+temp = malloc((size[1] + size[0] + 1) * sizeof(char));
+temp = ft_strcpy(temp, input_buffer, size[1] + size[0] - 1);
+free(input_buffer);
+input_buffer = malloc((size[1] + size[0] + 1) * sizeof(char));
+ft_strcpy(input_buffer, temp, size[1] + size[0] - 1);
+input_buffer[size[1] + size[0] - 1] = ch;
+
+
+
+// STEPS
+
+4) solve -> show board -> show solving message
+
+5) print results
+
+6) free board
+
+
+
+
+
+
+
+
+
+// DONE
+valid file check
+valid map check
+atoi
+printf
+
 //EXIT
 https://github.com/ronanboiteau/BSQ/blob/master/src/exit.c
 write prog_exit
 free content
-
-
-
-
-
-// done
-valid file check
-valid map check
-
 
 

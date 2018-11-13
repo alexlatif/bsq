@@ -1,0 +1,65 @@
+
+
+The key is to be able to build a data structure that can answer this query in O(1) time.
+- Is there an obstacle in the square whose top left corner is at x, y and has sweeps k?
+
+To solve that problem, we'll support answering a slightly harder question, also in O(1).
+- What is the count of items in the rectangle from x1, y1 to x2, y2?
+
+You can pre-compute all the top left rectangles in O(nm) by doing some clever row/column partial sums
+
+
+
+https://docs.google.com/document/d/19pHCD433tYsvAor0WObxa2qusAjKdx96kaf3z5I8XT8/edit
+
+
+
+
+
+
+Algo steps
+1) naive approach - every possible square and sweep
+
+2) exclusion tactic using only rectangles that start in the top left
+
+
+The optimized approach:
+
+1) increasing the square size - binary search over the next row and column to see if that row / column contains an obstacle at any of those positions.
+
+2) moving to the right - binary search for each next column to determine if that column contains an obstacle at any of those positions.
+
+3) moving down - similar binary on each of the columns in the target position.
+
+
+
+
+
+Binary search
+
+We'd first try a 1x1 square in the top-left corner, which works.
+
+Then a 2x2 square. For this, we do a binary search for the range [0,1] on the row 1, which can be represented simply by {4} - an array of a single position corresponding to where the obstacle is. And we also do a binary search for the range [0,1] on the column 1, which contains no obstacles, thus an empty array - {}.
+
+Then a 3x3 square. For this, we do a binary search for [0,2] on the row 2, which contains 1 obstacles at position 12, thus {12}. And we also do a binary search for [0,2] on the column 2, which contains an obstacle at position 8, thus {8}.
+
+Then a 4x4 square. For this, we do a binary search for [0,3] on the row 3 - {}. And for [0,3] on column 3 - {}.
+
+Then a 5x5 square. For this, we do a binary search for [0,4] on the row 4 - {4}. And for [0,4] column 4 - {1,4}.
+
+Here is the first one we actually find. In the range [0,4], we find 4 in both the row and the column (we only really need to find one of them). So this indicates a fail.
+
+From here we do a binary search on column 4 (again - not really necessary) for [0,4]. Then binary search columns 5-8 for [0,4], none of them found, so a square starting at position 5,0 is the next possible candidate.
+
+So from here we try to increase the square size to 5x5, which works, then 6x6 and 7x7, which works.
+
+Then we try 8x8, which doesn't work.
+
+And so on.
+
+I know binary search, but how does yours work?
+
+So we're basically doing a range search within a set of values. This is fairly easy to do. First search for the starting value of the range, then the end value. If we get to the same point, there are no values in the range.
+
+We don't really care what values exist in the range, just whether or not there are any.
+

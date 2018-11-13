@@ -7,83 +7,71 @@
 #include "board_info.h"
 #include "utils.h"
 
-int		_find_filepath(int ac, char **av)
+char	*get_fline(int fd)
 {
-	int index;
+	int		i;
+	char	c;
+	char	*fline;
 
-	index = 1;
-	while (index < ac)
-	{
-		if (av[index][0] != '-')
-			return (index);
-		index++;
-	}
-	// prog_exit "Usage: ./bsq [BOARD FILE]\n" 
-	return (0);
-}
-
-t_board	*_get_board_info(char *file)
-{
-    FILE		*fp;
-	char		line_buff[6];
-	char		*str;
-	t_board		*board_info;
-
-	if (!(board_info = malloc(sizeof(t_board))))
+	if (!(fline = malloc(sizeof(char) * FLINE_MAX_SIZE)))
 		ft_exit(12, ERR_MALLOC_BOARD_INFO);
-    fp = fopen(file, "r");
-    if (fp == NULL)
-        ft_exit(9, ERR_FILE_BOARD_INFO);
-	fgets ( line_buff, sizeof line_buff, fp );
-	str = &line_buff[0];
-	if (!check_valid_top_line(str))
-		ft_exit(1, ERR_VAL_BOARD_INFO); 
-	board_info->lines = atoi(&str[0]);
-	board_info->empty = str[1];
-	board_info->obstacle = str[2];
-	board_info->full = str[3];
-	// FIXME: FREE!
-	fclose(fp);
-	return (board_info);
+	i = 0;
+	while (read(fd, &c, 1) && c != '\n')
+	{
+		fline[i] = c;
+		i++;
+	}
+	fline[i] = '\0';
+	return (fline);
 }
 
-int     main(int ac, char **av)
+t_board		get_binfo(char *fline)
 {
-	int			file_indx;
+	int     size;
+    t_board	binfo;
+
+	binfo.lines = ft_atoi(fline);
+    size = ft_strlen(fline);
+    binfo.empty = fline[size - 3];
+    binfo.obstacle = fline[size - 2];
+    binfo.full = fline[size - 1];
+	return (binfo);
+}
+
+int		main(int ac, char **av)
+{
+	t_board		binfo;
 	char		**board;
-	t_board		*board_info;
-	char 		buf[1];
-	  
-	if (ac < 2)
+	char		*fline;
+	int			fd;
+
+	if (ac == 1)
 	{
 		// FIXME: read from stdin
 		// TODO: prog_exit "Usage: ./bsq [BOARD FILE]\n"
-		printf("NO FILE\n");
-		while (read(0, &buf, sizeof(buf)) > 0)
-		{
-		};
-		return (0);
 	}
-	file_indx = _find_filepath(ac, av);
-	board_info = _get_board_info(av[file_indx]);
-	if (!board_info)
-		ft_exit(1, ERR_FT_BOARD_INFO);
-	
-	// to remove
-	printf("lines: %d\n", board_info->lines);
-	printf("free: %c\n", board_info->empty);
-	printf("obst: %c\n", board_info->obstacle);
-	printf("sqr: %c\n", board_info->full);
 
-
-	board = get_board_matrix(av[file_indx], board_info->lines);
-	if (!check_valid_board(board, board_info))
-		ft_exit(1, ERR_VAL_BOARD_TL);
-	printf("New Board\n");
+	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+		ft_exit(12, ERR_FILE);
+	fline = get_fline(fd);
+	if (!check_valid_top_line(fline))
+		ft_exit(2, ERR_VAL_BOARD_INFO);
+	binfo = get_binfo(fline);
+	board = get_board_matrix(fd, binfo.lines);
+	if (!check_valid_board(board, binfo))
+		ft_exit(1, ERR_VAL_BOARD);
+	ft_putstr("New Board\n");
 	print_board(board);
 
 	// 4) solve -> show board -> show solving message
 	// 5) print results
+
 	// 6) free board
+	if (close(fd) < 0)
+	{
+		ft_putstr("close() failed\n");
+		return (1);
+	}
 	return (0);
 }
