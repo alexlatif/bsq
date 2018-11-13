@@ -65,7 +65,9 @@ int		main(int ac, char **av)
 	print_board(board);
 
 	// 4) solve -> show board -> show solving message
-	// 5) print results
+	board = solve_matrix(board, binfo);
+	print_board(board);
+
 
 	// 6) free board
 	if (close(fd) < 0)
