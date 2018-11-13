@@ -1,21 +1,42 @@
 
+
+// RULES TO CHECK
+At each end of line, there’s a line break.
+
+◦ All lines must have the same length.
+◦ There’s at least one line of at least one box.
+◦ At each end of line, there’s a line break.
+◦ The characters on the map can only be those introduced in the first line.
+
+display invalid map with - map error -  followed by a line break
+
+The executable must be called bsq and be present in the main directory
+
+must handle 1 to n files as parameters
+
+When your program receives more than one map in argument, each solution or error
+must be followed by a line break.
+
+
+
+
 //BACKLOG
-// FUNCTIONS TO WRITE
-fgets
-fopen
-fclose
-
-
-realloc str in get_board_matrix
-
-
 - Should there be no passed arguments, your program must be able to read on the
 standard input
+ERROR: 12, file delimiter error in main
+stdin one read and snap
+
+- test map
 
 - FREE
 
 - NORM
 
+may need linked list
+
+if all the elements are obstacles, then show the error. 
+
+find_swipe has 5 arguments, array from x, y
 
 
 
@@ -25,41 +46,14 @@ standard input
 
 
 
-RE ALLOC - create board;
-temp = malloc((size[1] + size[0] + 1) * sizeof(char));
-temp = ft_strcpy(temp, input_buffer, size[1] + size[0] - 1);
-free(input_buffer);
-input_buffer = malloc((size[1] + size[0] + 1) * sizeof(char));
-ft_strcpy(input_buffer, temp, size[1] + size[0] - 1);
-input_buffer[size[1] + size[0] - 1] = ch;
+// TARGET OPT
+Current record on speed tests:
+256x256 (1-2) - 12s
+512x512 (2-3) - 242s
 
+execution speed (5 points) and
+memory usage (5 points).
 
+100% cpu
 
-// STEPS
-
-4) solve -> show board -> show solving message
-
-5) print results
-
-6) free board
-
-
-
-
-
-
-
-
-
-// DONE
-valid file check
-valid map check
-atoi
-printf
-
-//EXIT
-https://github.com/ronanboiteau/BSQ/blob/master/src/exit.c
-write prog_exit
-free content
-
-
+mem
