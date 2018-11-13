@@ -58,7 +58,7 @@ int     main(int ac, char **av)
 	{
 		// FIXME: read from stdin
 		// TODO: prog_exit "Usage: ./bsq [BOARD FILE]\n"
-		printf("NO FILE\n");
+		ft_putstr("NO FILE\n");
 		while (read(0, &buf, sizeof(buf)) > 0)
 		{
 		};
@@ -69,7 +69,7 @@ int     main(int ac, char **av)
 	if (!board_info)
 		ft_exit(1, ERR_FT_BOARD_INFO);
 	
-	// to remove
+	// TODO: remove
 	printf("lines: %d\n", board_info->lines);
 	printf("free: %c\n", board_info->empty);
 	printf("obst: %c\n", board_info->obstacle);
@@ -79,7 +79,7 @@ int     main(int ac, char **av)
 	board = get_board_matrix(av[file_indx], board_info->lines);
 	if (!check_valid_board(board, board_info))
 		ft_exit(1, ERR_VAL_BOARD);
-	printf("New Board\n");
+	ft_putstr("New Board\n");
 	print_board(board);
 
 	// 4) solve -> show board -> show solving message

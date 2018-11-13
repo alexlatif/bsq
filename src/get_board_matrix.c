@@ -30,7 +30,7 @@ void		print_board(char **board)
 
 	i = 0;
 	while (board[i] != 0)
-		printf("%s\n", board[i++]);
+		ft_putstr(board[i++]);
 }
 
 char		**get_board_matrix(char *file, int lines)

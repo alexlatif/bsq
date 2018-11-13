@@ -54,6 +54,7 @@ CFLAGS	+= -Werror
 SRCS_DIR	= src/
 SRCS_FILES	= ft_exit.c			\
 		ft_atoi.c				\
+		ft_puts.c				\
 		#   $(CHAR_IS)
 		#   $(ENV)
 		#   $(PRINTF)	

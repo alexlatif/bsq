@@ -4,8 +4,7 @@
 fgets
 fopen
 fclose
-atoi
-printf
+
 realloc
 
 
@@ -37,6 +36,8 @@ standard input
 // DONE
 valid file check
 valid map check
+atoi
+printf
 
 //EXIT
 https://github.com/ronanboiteau/BSQ/blob/master/src/exit.c
