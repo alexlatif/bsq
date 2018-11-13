@@ -13,5 +13,6 @@
 
 
 void	ft_exit(int status, char *message);
+int		ft_atoi(char *str);
 
 #endif

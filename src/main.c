@@ -38,7 +38,7 @@ t_board	*_get_board_info(char *file)
 	str = &line_buff[0];
 	if (!check_valid_top_line(str))
 		ft_exit(1, ERR_VAL_BOARD_TL); 
-	board_info->lines = atoi(&str[0]);
+	board_info->lines = ft_atoi(&str[0]);
 	board_info->empty = str[1];
 	board_info->obstacle = str[2];
 	board_info->full = str[3];
