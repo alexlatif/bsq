@@ -56,16 +56,8 @@ int		main(int ac, char **av)
 		ft_exit(12, ERR_FILE);
 	fline = get_fline(fd);
 	if (!check_valid_top_line(fline))
-		return (2, ERR_VAL_BOARD_INFO);
+		ft_exit(2, ERR_VAL_BOARD_INFO);
 	binfo = get_binfo(fline);
-	
-	// TODO: remove
-	printf("lines: %d\n", binfo.lines);
-	printf("free: %c\n", binfo.empty);
-	printf("obst: %c\n", binfo.obstacle);
-	printf("sqr: %c\n", binfo.full);
-
-
 	board = get_board_matrix(fd, binfo.lines);
 	if (!check_valid_board(board, binfo))
 		ft_exit(1, ERR_VAL_BOARD);

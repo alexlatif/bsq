@@ -20,38 +20,24 @@ void		print_board(char **board)
 
 char		**get_board_matrix(int fd, int lines)
 {
-	char **matrix;
-	int i;
-	int j;
-	char c;
-	int elem;
+	char		**matrix;
+	char		ch;
+	int			i;
+	int			width;
 	
 	i = 0;
-	elem = 0;
 	matrix = malloc(sizeof(char*) * (lines + 1));
 	while (i < lines)
 	{
-		j = 0;
-		if (elem == 0)
+		width = 0;
+		matrix[i] = 0;
+		while (read(fd, &ch, 1) > 0)
 		{
-			matrix[i] = malloc(sizeof(char) * (20));
-			while (read(fd, &c, 1) && c != '\n')
-			{
-				matrix[i][j] = c;
-				j++;
-				elem++;
-			}
-			matrix[i][j] = '\0';
-		}
-		else
-		{
-			matrix[i] = malloc(sizeof(char) * (elem + 1));
-			while (read(fd, &c, 1) && c != '\n')
-			{
-				matrix[i][j] = c;
-				j++;
-			}
-			matrix[i][j] = '\0';
+			if (ch != '\n')
+				width++;
+			if (ch == '\n')
+				break ;
+			matrix[i] = ft_realloc(matrix[i], ch, width);
 		}
 		i++;
 	}

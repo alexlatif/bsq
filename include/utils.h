@@ -12,11 +12,13 @@
 # define ERR_VAL_BOARD_INFO "invalid board info in check_valid_top_line.c\n"
 # define FLINE_MAX_SIZE 15
 
+char	*ft_strcpy(char *dest, char *src, int length);
+char	*ft_realloc(char *o_string, char ch, int width);
 void	ft_exit(int status, char *message);
 void	ft_putnbr(int nb);
 void	ft_putstr(char *str);
 void	ft_putchar(char c);
 int		ft_atoi(char *str);
-int     ft_strlen(char *str);
+int    	ft_strlen(char *str);
 
 #endif

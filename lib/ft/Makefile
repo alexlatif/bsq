@@ -55,7 +55,8 @@ SRCS_DIR	= src/
 SRCS_FILES	= ft_exit.c			\
 		ft_atoi.c				\
 		ft_puts.c				\
-		ft_strlen.c				\
+		ft_string.c				\
+		ft_realloc.c			\
 		#   $(CHAR_IS)
 		#   $(ENV)
 		#   $(PRINTF)	
