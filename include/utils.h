@@ -8,7 +8,6 @@
 # define ERR_FILE_BOARD_INFO "no file delimiter in getting board info in main.c\n"
 # define ERR_FILE_BOARD "no file delimiter in creating board in get_board_matrix.c\n"
 # define ERR_FT_BOARD_INFO "error in get_board_info in main.c\n"
-# define ERR_VAL_BOARD_INFO "invalid board info in main.c\n"
 # define ERR_VAL_BOARD "invalid board in main.c\n"
 # define ERR_VAL_BOARD_TL "invalid board info in check_valid_top_line.c\n"
 

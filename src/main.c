@@ -37,7 +37,7 @@ t_board	*_get_board_info(char *file)
 	fgets ( line_buff, sizeof line_buff, fp );
 	str = &line_buff[0];
 	if (!check_valid_top_line(str))
-		ft_exit(1, ERR_VAL_BOARD_INFO); 
+		ft_exit(1, ERR_VAL_BOARD_TL); 
 	board_info->lines = atoi(&str[0]);
 	board_info->empty = str[1];
 	board_info->obstacle = str[2];
@@ -78,7 +78,7 @@ int     main(int ac, char **av)
 
 	board = get_board_matrix(av[file_indx], board_info->lines);
 	if (!check_valid_board(board, board_info))
-		ft_exit(1, ERR_VAL_BOARD_TL);
+		ft_exit(1, ERR_VAL_BOARD);
 	printf("New Board\n");
 	print_board(board);
 

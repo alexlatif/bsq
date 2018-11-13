@@ -1,5 +1,5 @@
 
-
+//BACKLOG
 // FUNCTIONS TO WRITE
 fgets
 fopen
@@ -12,25 +12,35 @@ realloc
 - Should there be no passed arguments, your program must be able to read on the
 standard input
 
-- get rid of printf
-
 - FREE
 
 - NORM
 
 
+
+// STEPS
+
+4) solve -> show board -> show solving message
+
+5) print results
+
+6) free board
+
+
+
+
+
+
+
+
+
+// DONE
+valid file check
+valid map check
+
 //EXIT
 https://github.com/ronanboiteau/BSQ/blob/master/src/exit.c
 write prog_exit
 free content
-
-
-
-
-
-// done
-valid file check
-valid map check
-
 
 
