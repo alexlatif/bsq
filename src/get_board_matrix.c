@@ -5,7 +5,7 @@
 #include "board_info.h"
 #include "utils.h"
 
-char		*_create_arr_line(char *data)
+char		*create_arr_line(char *data)
 {
 	char	*res;
 	int		len;
@@ -41,17 +41,17 @@ char		**get_board_matrix(char *file, int lines)
 	int		i;
 	int		skip;
 
-	if (! (board = malloc(sizeof(char*) * lines)))
+	if (!(board = malloc(sizeof(char*) * lines)))
 		ft_exit(12, ERR_MALLOC_BOARD);
 	fp = fopen(file, "r");
 	if (fp == NULL)
 		ft_exit(12, ERR_FILE_BOARD);
 	i = 0;
 	skip = 0;
-	while ( fgets ( line_buff, sizeof line_buff, fp ) != NULL )
+	while (fgets(line_buff, sizeof(line_buff), fp) != NULL)
 	{
 		if (skip != 0)
-			board [i++] = _create_arr_line(line_buff);
+			board[i++] = create_arr_line(line_buff);
 		skip = 1;
 	}
 	board[i] = 0;

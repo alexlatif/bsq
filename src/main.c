@@ -7,7 +7,7 @@
 #include "board_info.h"
 #include "utils.h"
 
-int		_find_filepath(int ac, char **av)
+int		find_filepath(int ac, char **av)
 {
 	int index;
 
@@ -22,7 +22,7 @@ int		_find_filepath(int ac, char **av)
 	return (0);
 }
 
-t_board	*_get_board_info(char *file)
+t_board	*get_board_info(char *file)
 {
     FILE		*fp;
 	char		line_buff[6];
@@ -34,7 +34,7 @@ t_board	*_get_board_info(char *file)
     fp = fopen(file, "r");
     if (fp == NULL)
         ft_exit(9, ERR_FILE_BOARD_INFO);
-	fgets ( line_buff, sizeof line_buff, fp );
+	fgets (line_buff, sizeof line_buff, fp);
 	str = &line_buff[0];
 	if (!check_valid_top_line(str))
 		ft_exit(1, ERR_VAL_BOARD_TL); 
@@ -47,13 +47,13 @@ t_board	*_get_board_info(char *file)
 	return (board_info);
 }
 
-int     main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	int			file_indx;
 	char		**board;
 	t_board		*board_info;
 	char 		buf[1];
-	  
+
 	if (ac < 2)
 	{
 		// FIXME: read from stdin
@@ -64,8 +64,8 @@ int     main(int ac, char **av)
 		};
 		return (0);
 	}
-	file_indx = _find_filepath(ac, av);
-	board_info = _get_board_info(av[file_indx]);
+	file_indx = find_filepath(ac, av);
+	board_info = get_board_info(av[file_indx]);
 	if (!board_info)
 		ft_exit(1, ERR_FT_BOARD_INFO);
 	

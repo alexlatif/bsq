@@ -20,16 +20,24 @@ int			check_valid_top_line(char *str)
 	return (1);
 }
 
+int			get_board_lines(char **board)
+{
+	int		lines;
+
+	lines = 0;
+	while (board[lines])
+		lines++;
+	return (lines);
+}
+
 int			check_valid_board(char **board, t_board *board_info)
 {
 	unsigned int	lines;
 	int				len;
 	int				i;
 
-	lines = 0;
 	len = 0;
-	while (board[lines])
-		lines++;
+	lines = get_board_lines(board);
 	if (board_info->lines != lines)
 		return (0);
 	while (board[0][len] != '\0')
@@ -38,12 +46,12 @@ int			check_valid_board(char **board, t_board *board_info)
 	{
 		i = 0;
 		while (board[lines][i + 1] != '\0')
-        {
-            if (board[lines][i] != board_info->empty &&
-            board[lines][i] != board_info->obstacle)
-                return (0);
-            i++;
-        }
+		{
+			if (board[lines][i] != board_info->empty &&
+			board[lines][i] != board_info->obstacle)
+				return (0);
+			i++;
+		}
 		if (len != i + 1)
 			return (0);
 	}
