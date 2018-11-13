@@ -3,19 +3,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "board_info.h"
+#include "utils.h"
 
 int			check_valid_top_line(char *str)
 {
 	int		i;
+	int		end;
 
 	i = 0;
-	while (str[i] >= 33 && str[i] <= 126)
+	while (str[i] >= '0' && str[i] <= '9')
 		i++;
-	if (i != 4)
+	if (ft_atoi(str) < 0)
 		return (0);
-	if (atoi(&str[0]) < 1)
+	end = i;
+	while (str[end] != '\0')
+		end++;
+	if ((end - i) != 3)
 		return (0);
-	if (str[1] == str[2] || str[1] == str[3] || str[2] == str[3])
+	if (str[end - 3] == str[end - 2] || str[end - 3] == str[end - 1] ||
+	str[end - 2] == str[end - 1])
 		return (0);
 	return (1);
 }
@@ -30,7 +36,7 @@ int			get_board_lines(char **board)
 	return (lines);
 }
 
-int			check_valid_board(char **board, t_board *board_info)
+int			check_valid_board(char **board, t_board board_info)
 {
 	unsigned int	lines;
 	int				len;
@@ -38,7 +44,7 @@ int			check_valid_board(char **board, t_board *board_info)
 
 	len = 0;
 	lines = get_board_lines(board);
-	if (board_info->lines != lines)
+	if (board_info.lines != lines)
 		return (0);
 	while (board[0][len] != '\0')
 		len++;
@@ -47,8 +53,8 @@ int			check_valid_board(char **board, t_board *board_info)
 		i = 0;
 		while (board[lines][i + 1] != '\0')
 		{
-			if (board[lines][i] != board_info->empty &&
-			board[lines][i] != board_info->obstacle)
+			if (board[lines][i] != board_info.empty &&
+			board[lines][i] != board_info.obstacle)
 				return (0);
 			i++;
 		}

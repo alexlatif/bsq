@@ -1,28 +1,10 @@
 
 #include <fcntl.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include "board_info.h"
 #include "utils.h"
-
-char		*create_arr_line(char *data)
-{
-	char	*res;
-	int		len;
-	int		end;
-
-	len = 0;
-	while (data[len] != '\0')
-		len++;
-	len = (len + 1);
-	end = len;
-	if (!(res = malloc(sizeof(char) * end)))
-		ft_exit(12, ERR_MALLOC_BOARD_ROW);
-	while (len--)
-		res[len] = data[len];
-	res[end] = '\0';
-	return (res);
-}
 
 void		print_board(char **board)
 {
@@ -30,30 +12,49 @@ void		print_board(char **board)
 
 	i = 0;
 	while (board[i] != 0)
+	{
 		ft_putstr(board[i++]);
+		ft_putchar('\n');
+	}
 }
 
-char		**get_board_matrix(char *file, int lines)
+char		**get_board_matrix(int fd, int lines)
 {
-	FILE	*fp;
-	char	**board;
-	char	line_buff[1048];
-	int		i;
-	int		skip;
-
-	if (!(board = malloc(sizeof(char*) * lines)))
-		ft_exit(12, ERR_MALLOC_BOARD);
-	fp = fopen(file, "r");
-	if (fp == NULL)
-		ft_exit(12, ERR_FILE_BOARD);
+	char **matrix;
+	int i;
+	int j;
+	char c;
+	int elem;
+	
 	i = 0;
-	skip = 0;
-	while (fgets(line_buff, sizeof(line_buff), fp) != NULL)
+	elem = 0;
+	matrix = malloc(sizeof(char*) * (lines + 1));
+	while (i < lines)
 	{
-		if (skip != 0)
-			board[i++] = create_arr_line(line_buff);
-		skip = 1;
+		j = 0;
+		if (elem == 0)
+		{
+			matrix[i] = malloc(sizeof(char) * (20));
+			while (read(fd, &c, 1) && c != '\n')
+			{
+				matrix[i][j] = c;
+				j++;
+				elem++;
+			}
+			matrix[i][j] = '\0';
+		}
+		else
+		{
+			matrix[i] = malloc(sizeof(char) * (elem + 1));
+			while (read(fd, &c, 1) && c != '\n')
+			{
+				matrix[i][j] = c;
+				j++;
+			}
+			matrix[i][j] = '\0';
+		}
+		i++;
 	}
-	board[i] = 0;
-	return (board);
+	matrix[i] = 0;
+	return (matrix);
 }

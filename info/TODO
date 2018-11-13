@@ -5,7 +5,8 @@ fgets
 fopen
 fclose
 
-realloc
+
+realloc str in get_board_matrix
 
 
 - Should there be no passed arguments, your program must be able to read on the
@@ -14,6 +15,15 @@ standard input
 - FREE
 
 - NORM
+
+
+
+
+
+
+
+
+
 
 RE ALLOC - create board;
 temp = malloc((size[1] + size[0] + 1) * sizeof(char));
