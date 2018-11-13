@@ -15,6 +15,14 @@ standard input
 
 - NORM
 
+RE ALLOC - create board;
+temp = malloc((size[1] + size[0] + 1) * sizeof(char));
+temp = ft_strcpy(temp, input_buffer, size[1] + size[0] - 1);
+free(input_buffer);
+input_buffer = malloc((size[1] + size[0] + 1) * sizeof(char));
+ft_strcpy(input_buffer, temp, size[1] + size[0] - 1);
+input_buffer[size[1] + size[0] - 1] = ch;
+
 
 
 // STEPS
