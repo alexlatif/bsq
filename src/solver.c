@@ -26,16 +26,14 @@ int		find_swipe(char **matrix, char obstacle, int x, int y, int swipe)
 		i = y;
 		while (i < y + 1 + swipe)
 		{
-			if (matrix[i][x + 1 + swipe] == obstacle)
+			if (matrix[i++][x + 1 + swipe] == obstacle)
 				return (swipe);
-			i++;
 		}
 		j = x;
 		while (j <= x + 1 + swipe)
 		{
-			if (matrix[i][j] == obstacle)
+			if (matrix[i][j++] == obstacle)
 				return (swipe);
-			j++;
 		}
 		swipe++;
 		return (find_swipe(matrix, obstacle, x, y, swipe));

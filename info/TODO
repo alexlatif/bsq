@@ -1,46 +1,52 @@
 
 
 // RULES TO CHECK
-At each end of line, there’s a line break.
 
 ◦ All lines must have the same length.
 ◦ There’s at least one line of at least one box.
 ◦ At each end of line, there’s a line break.
 ◦ The characters on the map can only be those introduced in the first line.
 
-display invalid map with - map error -  followed by a line break
-
 The executable must be called bsq and be present in the main directory
-
-must handle 1 to n files as parameters
 
 When your program receives more than one map in argument, each solution or error
 must be followed by a line break.
 
 
 
+//TEST
+
+test - must handle 1 to n files as parameters
+
+test - if all the elements are obstacles - map error
+
+
 
 //BACKLOG
 
-failure when obst are full 
-
-- unsigned ints
-
-- NORM
-
-find_swipe has 5 arguments, array from x, y
-
 clean compile after run and logs
 
-if all the elements are obstacles, then show - map error? no free space? in snap
+- NORM 
+get_board_matrix params
+find_swipe has 5 arguments
+
+42 file errors
+perl map_gen 100 100 2 |
+cat map |
+
+100% cpu
+
+mem
 
 if all elements are empty - result = square 
 
 - massive map
 
+- unsigned ints
+
+
 
 //bek
-- must handle 1 to n files as parameters
 - optimize
 - borders
 - binary
@@ -63,37 +69,3 @@ memory usage (5 points).
 binary tree 
 recursive backtracking
 dynamic programing in C
-
-100% cpu
-
-mem
-
-
-
-
-2.ox
-ooo
-o.o
-
-->
-xoo
-o.o
-
-
-1.ox
-ooo
-
--> 
-xoo
-
----------
-
-
-3.ox
-oooo
-o...
-o...
-
-oooo
-oxx.
-oxx.
