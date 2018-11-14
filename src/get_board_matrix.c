@@ -59,11 +59,13 @@ char	**get_matrix(char *buff, t_board binfo)
 	while (i < binfo.lines)
 	{
 		j = 0;
-		if (!check_valid_char(buff[arr[0]], binfo))
-			ft_exit(ERR_VAL_BOARD);
 		matrix[i] = malloc(sizeof(char) * (arr[1] + 1));
 		while (buff[arr[0]] != '\n' && buff[arr[0]])
+		{
+			if (!check_valid_char(buff[arr[0]], binfo))
+				ft_exit(ERR_VAL_BOARD);
 			matrix[i][j++] = buff[arr[0]++];
+		}
 		if (j != arr[1])
 			ft_exit(ERR_VAL_BOARD);
 		matrix[i][j] = '\0';
