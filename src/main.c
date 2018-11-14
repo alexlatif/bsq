@@ -49,6 +49,7 @@ int		main(int ac, char **av)
 
 	if (ac == 1)
 	{
+<<<<<<< HEAD
 		filename = "42";
 		fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 		if (fd == -1)
@@ -58,6 +59,12 @@ int		main(int ac, char **av)
 		}
 		while(read(STDIN_FILENO, &ch, 1) > 0)
 			ft_fputchar(fd, ch);
+=======
+		// FIXME: read from stdin
+		// TODO: prog_exit "Usage: ./bsq [BOARD FILE]\n"
+
+		// get stdin and create output file
+>>>>>>> 7dd6ab8... inconsistent maps
 	}
 	else
 		filename = av[1];
@@ -72,12 +79,10 @@ int		main(int ac, char **av)
 	board = get_board_matrix(fd, binfo.lines);
 	if (!check_valid_board(board, binfo))
 		ft_exit(1, ERR_VAL_BOARD);
-	ft_putstr("New Board\n");
-	print_board(board);
 
 	// 4) solve -> show board -> show solving message
 	board = solve_matrix(board, binfo);
-	print_board(board);
+	//print_board(board);
 
 
 	// 6) free board

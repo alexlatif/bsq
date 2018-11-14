@@ -1,6 +1,7 @@
 
 #include "snap.h"
 #include "board_info.h"
+#include <stdio.h>
 
 int		find_swipe(char **matrix, char obstacle, int x, int y, int swipe)
 {
