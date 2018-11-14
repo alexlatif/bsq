@@ -1,10 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   puts.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alatif <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/11/13 23:33:42 by alatif            #+#    #+#             */
+/*   Updated: 2018/11/13 23:33:45 by alatif           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PUTS_H
 # define PUTS_H
 
-void	ft_putnbr(int nb);
 void	ft_putstr(char *str);
-void	ft_putchar(char c);
-void	ft_fputchar(int fd, char c);
 
 #endif

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alatif <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/11/13 23:37:04 by alatif            #+#    #+#             */
+/*   Updated: 2018/11/13 23:37:07 by alatif           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
@@ -27,17 +38,17 @@ char	*get_header(int fd)
 
 char	*stdin_map(char *filename)
 {
-	int fd;
-	char c;
+	int		fd;
+	char	c;
 
 	fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 	if (fd == -1)
 		ft_exit(ERR_FILE);
-	while(read(STDIN_FILENO, &c, 1) > 0)
+	while (read(STDIN_FILENO, &c, 1) > 0)
 		ft_fputchar(fd, c);
-  	if (close(fd) < 0)
-  		ft_exit(ERR_FILE);
-  return (filename);
+	if (close(fd) < 0)
+		ft_exit(ERR_FILE);
+	return (filename);
 }
 
 void	solve_map(char *filename)
@@ -57,14 +68,14 @@ void	solve_map(char *filename)
 	matrix = get_board_matrix(fd, binfo);
 	matrix = solve_matrix(matrix, binfo);
 	print_board(matrix);
-  	if (close(fd) < 0)
-  		ft_exit(ERR_FILE);
+	if (close(fd) < 0)
+		ft_exit(ERR_FILE);
 }
 
 int		main(int argc, char *argv[])
 {
 	char	*filename;
-	int i;
+	int		i;
 
 	i = 1;
 	if (argc == 1)
