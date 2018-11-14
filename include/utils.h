@@ -6,10 +6,8 @@
 
 # define ERR_MALLOC_BOARD_ROW "error in allocating array row memory get_board_matrix.c\n"
 # define ERR_MALLOC_BOARD "allocating memory to board in get_board_matrix.c\n"
-
-# define ERR_FILE "file delimiter error in main\n"
 # define ERR_VAL_BOARD "map error\n"
-# define ERR_VAL_BOARD_INFO "invalid board info in check_valid_top_line.c\n"
+# define ERR_FILE "bad file\n"
 # define FLINE_MAX_SIZE 257
 
 char	*ft_strcpy(char *dest, char *src, int length);

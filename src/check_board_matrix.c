@@ -26,6 +26,19 @@ int			check_valid_top_line(char *str)
 	return (1);
 }
 
+t_board		get_binfo(char *fline)
+{
+	int     size;
+    t_board	binfo;
+
+	binfo.lines = ft_atoi(fline);
+    size = ft_strlen(fline);
+    binfo.empty = fline[size - 3];
+    binfo.obstacle = fline[size - 2];
+    binfo.full = fline[size - 1];
+	return (binfo);
+}
+
 int			check_valid_char(char c, t_board binfo)
 {
 	if (c == binfo.empty || c == binfo.full || c == binfo.obstacle)
