@@ -18,78 +18,77 @@
 #include "board_info.h"
 #include "utils.h"
 
-char	*get_header(int fd)
-{
-	int		i;
-	char	c;
-	char	*fline;
+#define BUFF_SIZE 1024
 
-	if (!(fline = malloc(sizeof(char) * FLINE_MAX_SIZE)))
-		ft_exit(ERR_MALLOC_BOARD_INFO);
+char	*get_buff(int fd)
+{
+	char	*buff;
+	int		bytes;
+	int		i;
+
+	if (!(buff = malloc(1024)))
+		return (NULL);
 	i = 0;
-	while (read(fd, &c, 1) && c != '\n')
+	while ((bytes = read(fd, &(buff[i]), 1)) > 0)
+		i++;
+	buff[i] = '\0';
+	return (buff);
+}
+
+char	*get_header(char *buff)
+{
+	char	*head;
+	int		i;
+
+	i = 0;
+	if (!(head = malloc(15)))
+		return (NULL);
+	while (buff[i] != '\n' && buff[i])
 	{
-		fline[i] = c;
+		head[i] = buff[i];
 		i++;
 	}
-	fline[i] = '\0';
-	return (fline);
+	head[i] = '\0';
+	if (!check_valid_top_line(head))
+		ft_exit(ERR_VAL_BOARD);
+	return (head);
 }
 
-char	*stdin_map(char *filename)
+void	solve_map(char *buff)
 {
-	int		fd;
-	char	c;
-
-	fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
-	if (fd == -1)
-		ft_exit(ERR_FILE);
-	while (read(STDIN_FILENO, &c, 1) > 0)
-		ft_fputchar(fd, c);
-	if (close(fd) < 0)
-		ft_exit(ERR_FILE);
-	return (filename);
-}
-
-void	solve_map(char *filename)
-{
-	int			fd;
 	char		*header;
 	char		**matrix;
 	t_board		binfo;
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		ft_exit(ERR_FILE);
-	header = get_header(fd);
-	if (!check_valid_top_line(header))
-		ft_exit(ERR_VAL_BOARD);
+	header = get_header(buff);
 	binfo = get_binfo(header);
-	matrix = get_board_matrix(fd, binfo);
+	matrix = get_matrix(buff, binfo);
 	matrix = solve_matrix(matrix, binfo);
 	print_board(matrix);
-	if (close(fd) < 0)
-		ft_exit(ERR_FILE);
 }
 
 int		main(int argc, char *argv[])
 {
-	char	*filename;
+	char	*buff;
+	int		fd;
 	int		i;
 
 	i = 1;
 	if (argc == 1)
 	{
-		filename = stdin_map("42");
-		if (!filename)
-			ft_exit(ERR_FILE);
-		solve_map(filename);
+		buff = get_buff(0);
+		solve_map(buff);
 		return (0);
 	}
 	while (i < argc)
 	{
-		filename = argv[i];
-		solve_map(filename);
+		fd = open(argv[i], O_RDONLY);
+		if (fd == -1)
+			ft_exit(ERR_FILE);
+		buff = get_buff(fd);
+		solve_map(buff);
+		if (close(fd) < 0)
+			ft_exit(ERR_FILE);
 		i++;
 	}
 	return (0);

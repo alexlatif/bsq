@@ -9,50 +9,48 @@
 
 The executable must be called bsq and be present in the main directory
 
-When your program receives more than one map in argument, each solution or error
-must be followed by a line break.
-
 
 
 //TEST
 
-test - must handle 1 to n files as parameters
+test - must handle 1 to n files as parameters - each solution or error must be followed by a line break.
+
 
 test - if all the elements are obstacles - map error
+
+test - massive map
+
+test - unsigned ints
 
 
 
 //BACKLOG
 
-clean compile after run and logs
+1)
+BUFFER, instead of char by char
 
+2)
 - NORM 
 get_board_matrix params
 find_swipe has 5 arguments
 
+3)
 42 file errors
 perl map_gen 100 100 2 |
 cat map |
 
+4)
 100% cpu
 
-mem
+5)
+free + mem
 
-if all elements are empty - result = square 
-
-- massive map
-
-- unsigned ints
 
 
 
 //bek
-- optimize
-- borders
-- binary
-- search pos
-- FREE
-
+- algo_1
+- if all elements are empty - result = square 
 
 
 
@@ -65,7 +63,3 @@ Current record on speed tests:
 
 execution speed (5 points) and
 memory usage (5 points).
-
-binary tree 
-recursive backtracking
-dynamic programing in C

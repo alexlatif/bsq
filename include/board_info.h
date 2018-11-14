@@ -15,7 +15,7 @@
 
 typedef struct		s_board
 {
-	unsigned int	lines;
+	int				lines;
 	char			empty;
 	char			obstacle;
 	char			full;

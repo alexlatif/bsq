@@ -29,49 +29,37 @@ void	print_board(char **board)
 	}
 }
 
-int		get_inner_arrays(char **matrix, unsigned int width, t_board binfo, int fd, char c)
+char	**get_matrix(char *buff, t_board binfo)
 {
-	unsigned int	j;
-	unsigned int	i;
+	char	**matrix;
+	int		i;
+	int		j;
+	int		width;
+	int		start;
 
-	i = 1;
+	i = 0;
+	matrix = malloc(sizeof(char*) * (binfo.lines + 1));
+	while (buff[i] != '\n')
+		i++;
+	i += 1;
+	start = i;
+	while (buff[i] != '\n')
+		i++;
+	width = i - start;
+	i = 0;
 	while (i < binfo.lines)
 	{
 		j = 0;
+		if (!check_valid_char(buff[start], binfo))
+			ft_exit(ERR_VAL_BOARD);
 		matrix[i] = malloc(sizeof(char) * (width + 1));
-		while (read(fd, &c, 1) && c != '\n')
-		{
-			if (!check_valid_char(c, binfo))
-				ft_exit(ERR_VAL_BOARD);
-			matrix[i][j++] = c;
-		}
+		while (buff[start] != '\n' && buff[start])
+			matrix[i][j++] = buff[start++];
 		if (j != width)
 			ft_exit(ERR_VAL_BOARD);
 		matrix[i][j] = '\0';
+		start++;
 		i++;
 	}
-	if (read(fd, &c, 1))
-		ft_exit(ERR_VAL_BOARD);
-	return (i);
-}
-
-char	**get_board_matrix(int fd, t_board binfo)
-{
-	char			**matrix;
-	char			c;
-	unsigned int	i;
-	unsigned int	width;
-
-	width = 0;
-	matrix = malloc(sizeof(char*) * (binfo.lines + 1));
-	matrix[0] = NULL;
-	while (read(fd, &c, 1) && c != '\n')
-	{
-		if (!check_valid_char(c, binfo))
-			ft_exit(ERR_VAL_BOARD);
-		matrix[0] = ft_realloc(matrix[0], c, ++width);
-	}
-	i = get_inner_arrays(matrix, width, binfo, fd, c);
-	matrix[i] = 0;
 	return (matrix);
 }

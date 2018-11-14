@@ -45,7 +45,7 @@ int		find_swipe(char **matrix, char obstacle, int x, int y, int swipe)
 t_snap	find_snapshot(char **matrix, t_board binfo)
 {
 	t_snap			snapshot;
-	unsigned int	i;
+	int				i;
 	int				j;
 	int				swipe;
 
