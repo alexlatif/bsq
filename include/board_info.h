@@ -10,4 +10,6 @@ typedef struct		s_board
 	char			full;
 }					t_board;
 
+int			check_valid_char(char c, t_board binfo);
+
 #endif

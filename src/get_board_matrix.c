@@ -18,27 +18,41 @@ void		print_board(char **board)
 	}
 }
 
-char		**get_board_matrix(int fd, int lines)
+char    **get_board_matrix(int fd, t_board binfo)
 {
-	char		**matrix;
-	char		c;
-	int			i;
-	int			width;
-	int			j;
+    char	    	**matrix;
+	char			c;
+    unsigned int	i;
+    unsigned int	j;
+	unsigned int	width;
 
-	i = 0;
-	width = 0;
-	matrix = malloc(sizeof(char*) * (lines + 1));
-	while (read(fd, &c, 1) && c != '\n')
-		matrix[i] = ft_realloc(matrix[i], c, width++);
-	while (i++ < lines)
-	{
-		j = 0;
-		matrix[i] = malloc(sizeof(char*) * (width + 1));
-		while (read(fd, &c, 1) && c != '\n')
-			matrix[i][j++] = c;
-		matrix[i][j] = '\0';
-	}
-	matrix[i] = 0;
-	return (matrix);
+    width = 0;
+	matrix = malloc(sizeof(char*) * (binfo.lines + 1));
+    matrix[0] = NULL;
+    while (read(fd, &c, 1) && c != '\n')
+    {
+		if (!check_valid_char(c, binfo))
+			ft_exit(1, ERR_VAL_BOARD);
+        matrix[0] = ft_realloc(matrix[0], c, ++width);
+    }
+    i = 1;
+    while (i < binfo.lines)
+    {
+        j = 0;
+        matrix[i] = malloc(sizeof(char) * (width + 1));
+        while (read(fd, &c, 1) && c != '\n')
+        {
+			if (!check_valid_char(c, binfo))
+				ft_exit(1, ERR_VAL_BOARD);
+            matrix[i][j++] = c;
+        }
+		if (j != width)
+			ft_exit(1, ERR_VAL_BOARD);
+        matrix[i][j] = '\0';
+        i++;
+    }
+	if (read(fd, &c, 1))
+		ft_exit(1, ERR_VAL_BOARD);
+    matrix[i] = 0;
+    return (matrix);
 }

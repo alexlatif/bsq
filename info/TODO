@@ -32,8 +32,6 @@ find_swipe has 5 arguments, array from x, y
 
 clean compile after run and logs
 
-may need linked list
-
 if all the elements are obstacles, then show - map error? no free space? in snap
 
 if all elements are empty - result = square 

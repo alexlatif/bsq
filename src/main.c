@@ -66,10 +66,10 @@ int		main(int ac, char **av)
 	if (fd == -1)
 		ft_exit(12, ERR_FILE);
 	fline = get_fline(fd);
-	if (!check_valid_top_line(fline))
-		ft_exit(2, ERR_VAL_BOARD_INFO);
+	// if (!check_valid_top_line(fline))
+	// 	ft_exit(2, ERR_VAL_BOARD_INFO);
 	binfo = get_binfo(fline);
-	board = get_board_matrix(fd, binfo.lines);
+	board = get_board_matrix(fd, binfo);
 	// if (!check_valid_board(board, binfo))
 	// 	ft_exit(1, ERR_VAL_BOARD);
 

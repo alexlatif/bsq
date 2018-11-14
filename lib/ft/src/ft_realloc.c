@@ -3,14 +3,13 @@
 #include "strings.h"
 #include <stdio.h>
 
-char		*ft_realloc(char *o_string, char ch, int width)
+char    *ft_realloc(char *str, char c, int width)
 {
-	char		*temp;
+    char    *temp;
 
-	temp = malloc((width + 2) * sizeof(char));
-	if (o_string)
-		temp = ft_strcpy(temp, o_string, width);
-	temp[width - 1] = ch;
-	free(o_string);
-	return (temp);
+    temp = malloc(sizeof(char) * (width + 1));
+    temp = ft_strcpy(temp, str, width - 1);
+    temp[width - 1] = c;
+    temp[width] = '\0';
+    return (temp);
 }

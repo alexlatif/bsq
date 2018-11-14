@@ -9,16 +9,15 @@ int     ft_strlen(char *str)
     return (i);
 }
 
-char	*ft_strcpy(char *dest, char *src, int length)
+char    *ft_strcpy(char *dest, char *src, int length)
 {
-	int i;
+    int i;
 
-	i = 0;
-	while (i <= length)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+    i = 0;
+    while (i < length)
+    {
+        dest[i] = src[i];
+        i++;
+    }
+    return (dest);
 }
