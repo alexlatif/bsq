@@ -13,30 +13,31 @@
 #include "snap.h"
 #include "board_info.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-int		find_swipe(char **matrix, char obstacle, int x, int y, int swipe)
+int		find_swipe(char **matrix, char obstacle, int *arr, int swipe)
 {
 	int		i;
 	int		j;
 
-	if (matrix[y][x] == obstacle)
+	if (matrix[arr[0]][arr[1]] == obstacle)
 		return (-1);
-	if (matrix[0][x + 1 + swipe] && matrix[y + 1 + swipe])
+	if (matrix[0][arr[1] + 1 + swipe] && matrix[arr[0] + 1 + swipe])
 	{
-		i = y;
-		while (i < y + 1 + swipe)
+		i = arr[0];
+		while (i < arr[0] + 1 + swipe)
 		{
-			if (matrix[i++][x + 1 + swipe] == obstacle)
+			if (matrix[i++][arr[1] + 1 + swipe] == obstacle)
 				return (swipe);
 		}
-		j = x;
-		while (j <= x + 1 + swipe)
+		j = arr[1];
+		while (j <= arr[1] + 1 + swipe)
 		{
 			if (matrix[i][j++] == obstacle)
 				return (swipe);
 		}
 		swipe++;
-		return (find_swipe(matrix, obstacle, x, y, swipe));
+		return (find_swipe(matrix, obstacle, arr, swipe));
 	}
 	else
 		return (swipe);
@@ -45,27 +46,27 @@ int		find_swipe(char **matrix, char obstacle, int x, int y, int swipe)
 t_snap	find_snapshot(char **matrix, t_board binfo)
 {
 	t_snap			snapshot;
-	int				i;
-	int				j;
+	int				*arr;
 	int				swipe;
 
 	snapshot.swipe = -1;
-	i = 0;
-	while (i < binfo.lines)
+	arr = malloc(2);
+	arr[0] = 0;
+	while (arr[0] < binfo.lines)
 	{
-		j = 0;
-		while (matrix[i][j] != '\0')
+		arr[1] = 0;
+		while (matrix[arr[0]][arr[1]] != '\0')
 		{
-			swipe = find_swipe(matrix, binfo.obstacle, j, i, 0);
+			swipe = find_swipe(matrix, binfo.obstacle, arr, 0);
 			if (swipe > snapshot.swipe)
 			{
-				snapshot.x = j;
-				snapshot.y = i;
+				snapshot.x = arr[1];
+				snapshot.y = arr[0];
 				snapshot.swipe = swipe;
 			}
-			j++;
+			arr[1]++;
 		}
-		i++;
+		arr[0]++;
 	}
 	return (snapshot);
 }
