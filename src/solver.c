@@ -8,7 +8,10 @@ int		find_swipe(char **matrix, char obstacle, int x, int y, int swipe)
 	int i;
 	int j;
 
-	if (matrix[0][x + 1 + swipe] && matrix[y + 1 + swipe] && matrix[y][x] != obstacle)
+  if (matrix[y][x] == obstacle)
+    return -1;
+
+	if (matrix[0][x + 1 + swipe] && matrix[y + 1 + swipe])
 	{
 		i = y;
 		while (i < y + 1 + swipe)
@@ -39,11 +42,9 @@ t_snap	find_snapshot(char **matrix, t_board binfo)
 	int				j;
 	int				swipe;
 
-	snapshot.x = 0;
-	snapshot.y = 0;
-	snapshot.swipe = 0;
+	snapshot.swipe = -1;
 	i = 0;
-	while (i < binfo.lines - 1)
+	while (i < binfo.lines)
 	{
 		j = 0;
 		while (matrix[i][j] != '\0')
