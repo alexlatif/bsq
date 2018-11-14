@@ -43,15 +43,26 @@ int		main(int ac, char **av)
 	t_board		binfo;
 	char		**board;
 	char		*fline;
+	char		*filename;
 	int			fd;
+	char		ch;
 
 	if (ac == 1)
 	{
-		// FIXME: read from stdin
-		// TODO: prog_exit "Usage: ./bsq [BOARD FILE]\n"
+		filename = "42";
+		fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
+		if (fd == -1)
+		{
+			ft_putstr("open() error\n");
+			return (1);
+		}
+		while(read(STDIN_FILENO, &ch, 1) > 0)
+			ft_fputchar(fd, ch);
 	}
+	else
+		filename = av[1];
 
-	fd = open(av[1], O_RDONLY);
+	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		ft_exit(12, ERR_FILE);
 	fline = get_fline(fd);
