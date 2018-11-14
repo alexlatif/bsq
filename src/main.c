@@ -7,11 +7,6 @@
 #include "board_info.h"
 #include "utils.h"
 
-void	file_putchar(int fd, char c)
-{
-	write(fd, &c, 1);
-}
-
 char	*get_fline(int fd)
 {
 	int		i;
@@ -58,11 +53,11 @@ int		main(int ac, char **av)
 		fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 		if (fd == -1)
 		{
-			printf("open() error\n");
+			ft_putstr("open() error\n");
 			return (1);
 		}
 		while(read(STDIN_FILENO, &ch, 1) > 0)
-			file_putchar(fd, ch);
+			ft_fputchar(fd, ch);
 	}
 	else
 		filename = av[1];
