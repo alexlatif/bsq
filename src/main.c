@@ -82,3 +82,92 @@ int		main(int ac, char **av)
 	}
 	return (0);
 }
+
+
+
+
+
+
+char	*stdin_map(char *filename)
+{
+	int fd;
+	char c;
+
+	fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
+	if (fd == -1)
+	{
+		ft_putstr("open() error\n");
+		return (NULL);
+	}
+
+	while(read(STDIN_FILENO, &c, 1) > 0)
+		ft_fputchar(fd, c);
+
+  if (close(fd) < 0)
+  {
+    ft_putstr("close() failed\n");
+    return (NULL);
+  }
+
+  return (filename);
+}
+
+int fill_map(char *filename)
+{
+	int		fd;
+	char	*header;
+	char	**matrix;
+	t_binfo	binfo;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr("open() failed\n");
+		return (1);
+	}
+
+	header = get_header(fd);
+	binfo = get_binfo(header);
+	matrix = get_matrix(fd, binfo.lines);
+		
+	//validate(matrix);
+	matrix = solve_matrix(matrix, binfo);
+
+	print_board(matrix);
+
+	if (close(fd) < 0)
+	{
+		ft_putstr("close() failed\n");
+		return (1);
+	}
+
+	return (0);
+}
+
+int		main(int argc, char *argv[])
+{
+	char	*filename;
+	int i;
+
+	if (argc == 1)
+	{
+		filename = stdin_map("42");
+		if (!filename)
+			return (1);
+		if (fill_map(filename) == 1)
+			return (1);
+
+		return (0);
+	}
+
+	i = 1;
+	while (i < argc)
+	{
+		filename = argv[i];
+		if (fill_map(filename) == 1)
+			return (1);
+		i++;
+	}
+
+	return (0);
+}
