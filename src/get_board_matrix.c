@@ -32,7 +32,7 @@ char    **get_board_matrix(int fd, t_board binfo)
     while (read(fd, &c, 1) && c != '\n')
     {
 		if (!check_valid_char(c, binfo))
-			ft_exit(1, ERR_VAL_BOARD);
+			ft_exit(ERR_VAL_BOARD);
         matrix[0] = ft_realloc(matrix[0], c, ++width);
     }
     i = 1;
@@ -43,16 +43,16 @@ char    **get_board_matrix(int fd, t_board binfo)
         while (read(fd, &c, 1) && c != '\n')
         {
 			if (!check_valid_char(c, binfo))
-				ft_exit(1, ERR_VAL_BOARD);
+				ft_exit(ERR_VAL_BOARD);
             matrix[i][j++] = c;
         }
 		if (j != width)
-			ft_exit(1, ERR_VAL_BOARD);
+			ft_exit(ERR_VAL_BOARD);
         matrix[i][j] = '\0';
         i++;
     }
 	if (read(fd, &c, 1))
-		ft_exit(1, ERR_VAL_BOARD);
+		ft_exit(ERR_VAL_BOARD);
     matrix[i] = 0;
     return (matrix);
 }

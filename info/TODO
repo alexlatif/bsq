@@ -22,7 +22,7 @@ must be followed by a line break.
 
 //BACKLOG
 
-- validate at incoming file before setting 
+failure when obst are full 
 
 - unsigned ints
 
@@ -40,6 +40,7 @@ if all elements are empty - result = square
 
 
 //bek
+- must handle 1 to n files as parameters
 - optimize
 - borders
 - binary
@@ -66,3 +67,33 @@ dynamic programing in C
 100% cpu
 
 mem
+
+
+
+
+2.ox
+ooo
+o.o
+
+->
+xoo
+o.o
+
+
+1.ox
+ooo
+
+-> 
+xoo
+
+---------
+
+
+3.ox
+oooo
+o...
+o...
+
+oooo
+oxx.
+oxx.

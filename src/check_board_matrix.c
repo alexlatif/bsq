@@ -20,20 +20,10 @@ int			check_valid_top_line(char *str)
 		end++;
 	if ((end - i) != 3)
 		return (0);
-	if (str[end - 3] != str[end - 2] || str[end - 3] == str[end - 1] ||
-	str[end - 2] == str[end - 1])
+	if (str[i] == str[i + 1] || str[i] == str[i + 2] ||
+	str[i + 2] == str[i + 1])
 		return (0);
 	return (1);
-}
-
-int			get_board_lines(char **board)
-{
-	int		lines;
-
-	lines = 0;
-	while (board[lines])
-		lines++;
-	return (lines);
 }
 
 int			check_valid_char(char c, t_board binfo)
