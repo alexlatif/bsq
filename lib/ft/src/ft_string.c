@@ -14,7 +14,7 @@ char	*ft_strcpy(char *dest, char *src, int length)
 	int i;
 
 	i = 0;
-	while (i < length)
+	while (i <= length)
 	{
 		dest[i] = src[i];
 		i++;

@@ -18,6 +18,7 @@ void	ft_exit(int status, char *message);
 void	ft_putnbr(int nb);
 void	ft_putstr(char *str);
 void	ft_putchar(char c);
+void	ft_fputchar(int fd, char c);
 int		ft_atoi(char *str);
 int    	ft_strlen(char *str);
 

@@ -24,18 +24,20 @@ char		**get_board_matrix(int fd, int lines)
 	char		c;
 	int			i;
 	int			width;
-	int			line_break;
+	int			j;
 
 	i = 0;
-	line_break = 0;
+	width = 0;
 	matrix = malloc(sizeof(char*) * (lines + 1));
-	while (i < lines)
+	while (read(fd, &c, 1) && c != '\n')
+		matrix[i] = ft_realloc(matrix[i], c, width++);
+	while (i++ < lines)
 	{
-		width = 0;
-		matrix[i] = 0;
+		j = 0;
+		matrix[i] = malloc(sizeof(char*) * (width + 1));
 		while (read(fd, &c, 1) && c != '\n')
-			matrix[i] = ft_realloc(matrix[i], c, width++);
-		i++;
+			matrix[i][j++] = c;
+		matrix[i][j] = '\0';
 	}
 	matrix[i] = 0;
 	return (matrix);

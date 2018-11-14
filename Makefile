@@ -9,7 +9,7 @@ LDIR	= lib/ft
 
 CC	= gcc
 CFLAGS	+= -I $(IDIR) -I $(IDIR_MY)
-CFLAGS	+= -Wall -Wextra -ansi
+CFLAGS	+= -Wall -Wextra -ansi #-fsanitize=address
 # CFLAGS	+= -Werror
 
 SRCS_DIR		= src/

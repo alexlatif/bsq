@@ -22,11 +22,7 @@ must be followed by a line break.
 
 //BACKLOG
 
-- massive map
-
-- validate at incoming file
-
-- hard code first line length for the rest - realloc 1
+- validate at incoming file before setting 
 
 - unsigned ints
 
@@ -42,6 +38,7 @@ if all the elements are obstacles, then show - map error? no free space? in snap
 
 if all elements are empty - result = square 
 
+- massive map
 
 
 //bek
