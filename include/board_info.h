@@ -11,5 +11,6 @@ typedef struct		s_board
 }					t_board;
 
 int			check_valid_char(char c, t_board binfo);
+t_board		get_binfo(char *fline);
 
 #endif

@@ -7,7 +7,7 @@
 #include "board_info.h"
 #include "utils.h"
 
-char	*get_fline(int fd)
+char	*get_header(int fd)
 {
 	int		i;
 	char	c;
@@ -25,69 +25,6 @@ char	*get_fline(int fd)
 	return (fline);
 }
 
-t_board		get_binfo(char *fline)
-{
-	int     size;
-    t_board	binfo;
-
-	binfo.lines = ft_atoi(fline);
-    size = ft_strlen(fline);
-    binfo.empty = fline[size - 3];
-    binfo.obstacle = fline[size - 2];
-    binfo.full = fline[size - 1];
-	return (binfo);
-}
-
-int		main(int ac, char **av)
-{
-	t_board		binfo;
-	char		**board;
-	char		*fline;
-	char		*filename;
-	int			fd;
-	char		ch;
-
-	if (ac == 1)
-	{
-		filename = "42";
-		fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
-		if (fd == -1)
-		{
-			ft_putstr("open() error\n");
-			return (1);
-		}
-		while(read(STDIN_FILENO, &ch, 1) > 0)
-			ft_fputchar(fd, ch);
-	}
-	else
-		filename = av[1];
-
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		ft_exit(ERR_FILE);
-	fline = get_fline(fd);
-	if (!check_valid_top_line(fline))
-		ft_exit(ERR_VAL_BOARD_INFO);
-	binfo = get_binfo(fline);
-	board = get_board_matrix(fd, binfo);
-	board = solve_matrix(board, binfo);
-	print_board(board);
-
-
-	// 6) free board
-	if (close(fd) < 0)
-	{
-		ft_putstr("close() failed\n");
-		return (1);
-	}
-	return (0);
-}
-
-
-
-
-
-
 char	*stdin_map(char *filename)
 {
 	int fd;
@@ -95,53 +32,33 @@ char	*stdin_map(char *filename)
 
 	fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 	if (fd == -1)
-	{
-		ft_putstr("open() error\n");
-		return (NULL);
-	}
-
+		ft_exit(ERR_FILE);
 	while(read(STDIN_FILENO, &c, 1) > 0)
 		ft_fputchar(fd, c);
-
-  if (close(fd) < 0)
-  {
-    ft_putstr("close() failed\n");
-    return (NULL);
-  }
-
+  	if (close(fd) < 0)
+  		ft_exit(ERR_FILE);
   return (filename);
 }
 
-int fill_map(char *filename)
+void	solve_map(char *filename)
 {
-	int		fd;
-	char	*header;
-	char	**matrix;
-	t_binfo	binfo;
+	int			fd;
+	char		*header;
+	char		**matrix;
+	t_board		binfo;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-	{
-		ft_putstr("open() failed\n");
-		return (1);
-	}
-
+		ft_exit(ERR_FILE);
 	header = get_header(fd);
+	if (!check_valid_top_line(header))
+		ft_exit(ERR_VAL_BOARD);
 	binfo = get_binfo(header);
-	matrix = get_matrix(fd, binfo.lines);
-		
-	//validate(matrix);
+	matrix = get_board_matrix(fd, binfo);
 	matrix = solve_matrix(matrix, binfo);
-
 	print_board(matrix);
-
-	if (close(fd) < 0)
-	{
-		ft_putstr("close() failed\n");
-		return (1);
-	}
-
-	return (0);
+  	if (close(fd) < 0)
+  		ft_exit(ERR_FILE);
 }
 
 int		main(int argc, char *argv[])
@@ -149,25 +66,20 @@ int		main(int argc, char *argv[])
 	char	*filename;
 	int i;
 
+	i = 1;
 	if (argc == 1)
 	{
 		filename = stdin_map("42");
 		if (!filename)
-			return (1);
-		if (fill_map(filename) == 1)
-			return (1);
-
+			ft_exit(ERR_FILE);
+		solve_map(filename);
 		return (0);
 	}
-
-	i = 1;
 	while (i < argc)
 	{
 		filename = argv[i];
-		if (fill_map(filename) == 1)
-			return (1);
+		solve_map(filename);
 		i++;
 	}
-
 	return (0);
 }
