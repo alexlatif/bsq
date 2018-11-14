@@ -28,18 +28,27 @@ stdin one read and snap
 
 - test map
 
-- FREE
-
 - NORM
 
-may need linked list
+if all the elements are obstacles, then show - map error?
 
-if all the elements are obstacles, then show the error. 
+if all elements are empty - result = square 
 
 find_swipe has 5 arguments, array from x, y
 
+clean compile after run and logs
+
+may need linked list
 
 
+
+
+//bek
+- optimize
+- borders
+- binary
+- search pos
+- FREE
 
 
 
@@ -53,6 +62,10 @@ Current record on speed tests:
 
 execution speed (5 points) and
 memory usage (5 points).
+
+binary tree 
+recursive backtracking
+dynamic programing in C
 
 100% cpu
 
