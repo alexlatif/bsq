@@ -29,36 +29,45 @@ void	print_board(char **board)
 	}
 }
 
-char	**get_matrix(char *buff, t_board binfo)
+int		*get_width(char *buff)
 {
-	char	**matrix;
+	int		*arr;
 	int		i;
-	int		j;
-	int		width;
-	int		start;
 
 	i = 0;
-	matrix = malloc(sizeof(char*) * (binfo.lines + 1));
+	arr = malloc(2);
 	while (buff[i] != '\n')
 		i++;
 	i += 1;
-	start = i;
+	arr[0] = i;
 	while (buff[i] != '\n')
 		i++;
-	width = i - start;
+	arr[1] = i - arr[0];
+	return (arr);
+}
+
+char	**get_matrix(char *buff, t_board binfo)
+{
+	char	**matrix;
+	int		*arr;
+	int		j;
+	int		i;
+
 	i = 0;
+	matrix = malloc(sizeof(char*) * (binfo.lines + 1));
+	arr = get_width(buff);
 	while (i < binfo.lines)
 	{
 		j = 0;
-		if (!check_valid_char(buff[start], binfo))
+		if (!check_valid_char(buff[arr[0]], binfo))
 			ft_exit(ERR_VAL_BOARD);
-		matrix[i] = malloc(sizeof(char) * (width + 1));
-		while (buff[start] != '\n' && buff[start])
-			matrix[i][j++] = buff[start++];
-		if (j != width)
+		matrix[i] = malloc(sizeof(char) * (arr[1] + 1));
+		while (buff[arr[0]] != '\n' && buff[arr[0]])
+			matrix[i][j++] = buff[arr[0]++];
+		if (j != arr[1])
 			ft_exit(ERR_VAL_BOARD);
 		matrix[i][j] = '\0';
-		start++;
+		arr[0]++;
 		i++;
 	}
 	return (matrix);
