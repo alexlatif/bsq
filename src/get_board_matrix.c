@@ -67,15 +67,17 @@ char	*get_arr_from_link(char *str, t_list *fline, t_board binfo)
 char	*get_matrix_arr(char *str, t_board binfo, int fd, int width)
 {
 	int		j;
-	char	c;
+	char	*buff;
 
 	j = 0;
-	while (read(fd, &c, 1) > 0 && c != '\n')
+	buff = malloc(sizeof(char) * width + 1);
+	while (read(fd, &(buff[j]), 1) > 0 && buff[j] != '\n' && buff[j] != '\0')
 	{
-		if (!check_valid_char(c, binfo))
+		if (!check_valid_char(*buff, binfo))
 			ft_exit(ERR_VAL_BOARD);
-		str[j++] = c;
+		j++;
 	}
+	str = buff;
 	if (j != width)
 		ft_exit(ERR_VAL_BOARD);
 	str[j] = '\0';

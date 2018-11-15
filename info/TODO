@@ -25,9 +25,6 @@ test - unsigned ints
 
 //BACKLOG
 
-4)
-100% cpu
-
 5)
 free + mem
 
@@ -49,3 +46,8 @@ Current record on speed tests:
 
 execution speed (5 points) and
 memory usage (5 points).
+
+
+1000
+./bsq  3.21s user 1.55s system 88% cpu 5.411 total
+./bsq  3.10s user 1.45s system 86% cpu 5.263 total

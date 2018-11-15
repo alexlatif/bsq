@@ -10,7 +10,7 @@ LDIR	= lib/ft
 CC	= gcc
 CFLAGS	+= -I $(IDIR) -I $(IDIR_MY)
 CFLAGS	+= -Wall -Wextra
-CFLAGS	+= -Werror
+#FLAGS	+= -Werror
 
 SRCS_DIR		= src/
 SRCS_FILES		= get_board_matrix.c	\
