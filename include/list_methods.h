@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   board_methods.h                                    :+:      :+:    :+:   */
+/*   list_methods.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alatif <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 23:43:15 by alatif            #+#    #+#             */
-/*   Updated: 2018/11/13 23:43:17 by alatif           ###   ########.fr       */
+/*   Created: 2018/11/14 16:38:55 by alatif            #+#    #+#             */
+/*   Updated: 2018/11/14 16:38:57 by alatif           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BOARD_METHODS_H
-# define BOARD_METHODS_H
+#ifndef LIST_METHODS_H
+# define LIST_METHODS_H
 
-# include "board_info.h"
+# include "fline_list.h"
 
-char		**get_board_matrix(int fd, t_board binfo);
-void		print_board(char **board);
-char		**solve_matrix(char **matrix, t_board binfo);
+void		print_list(t_list *list);
+t_list		*ft_create_elem(char data);
+void		ft_list_push_back(t_list **begin_list, char data);
 
 #endif

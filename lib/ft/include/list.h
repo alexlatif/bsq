@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   board_methods.h                                    :+:      :+:    :+:   */
+/*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alatif <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 23:43:15 by alatif            #+#    #+#             */
-/*   Updated: 2018/11/13 23:43:17 by alatif           ###   ########.fr       */
+/*   Created: 2018/11/14 16:36:18 by alatif            #+#    #+#             */
+/*   Updated: 2018/11/14 16:36:20 by alatif           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BOARD_METHODS_H
-# define BOARD_METHODS_H
+#ifndef LIST_H
+# define LIST_H
 
-# include "board_info.h"
+typedef struct s_list	t_list;
 
-char		**get_board_matrix(int fd, t_board binfo);
-void		print_board(char **board);
-char		**solve_matrix(char **matrix, t_board binfo);
+struct		s_list
+{
+	char	data;
+	t_list	*next;
+};
 
 #endif

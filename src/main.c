@@ -18,66 +18,53 @@
 #include "board_info.h"
 #include "utils.h"
 
-#define BUFF_SIZE 1024
-
-char	*get_buff(int fd)
+int		ft_get_header(t_board *binfo, int fd)
 {
-	char	*buff;
-	int		bytes;
-	int		i;
-
-	if (!(buff = malloc(1024)))
-		return (NULL);
-	i = 0;
-	while ((bytes = read(fd, &(buff[i]), 1)) > 0)
-		i++;
-	buff[i] = '\0';
-	return (buff);
-}
-
-char	*get_header(char *buff)
-{
-	char	*head;
-	int		i;
+	char		head[15];
+	int			digits;
+	int			n;
+	int			i;
 
 	i = 0;
-	if (!(head = malloc(15)))
-		return (NULL);
-	while (buff[i] != '\n' && buff[i])
-	{
-		head[i] = buff[i];
+	while (read(fd, &(head[i]), 1) > 0 && head[i] != '\n' && i < 14)
 		i++;
-	}
-	head[i] = '\0';
-	if (!check_valid_top_line(head))
-		ft_exit(ERR_VAL_BOARD);
-	return (head);
+	binfo->full = head[i - 1];
+	binfo->obstacle = head[i - 2];
+	binfo->empty = head[i - 3];
+	head[i - 3] = '\0';
+	binfo->lines = ft_atoi(head);
+	digits = 1;
+	n = binfo->lines;
+	while (n >= 10 && digits++)
+		n /= 10;
+	if (binfo->full == binfo->empty || binfo->full == binfo->obstacle ||
+	binfo->obstacle == binfo->empty || binfo->lines < 1 || digits + 3 != i)
+		return (0);
+	return (1);
 }
 
-void	solve_map(char *buff)
+void	solve_map(int fd)
 {
-	char		*header;
+	int			header;
 	char		**matrix;
 	t_board		binfo;
 
-	header = get_header(buff);
-	binfo = get_binfo(header);
-	matrix = get_matrix(buff, binfo);
+	if (!(header = ft_get_header(&binfo, fd)))
+		ft_exit(ERR_VAL_BOARD);
+	matrix = get_board_matrix(fd, binfo);
 	matrix = solve_matrix(matrix, binfo);
 	print_board(matrix);
 }
 
 int		main(int argc, char *argv[])
 {
-	char	*buff;
 	int		fd;
 	int		i;
 
 	i = 1;
 	if (argc == 1)
 	{
-		buff = get_buff(0);
-		solve_map(buff);
+		solve_map(0);
 		return (0);
 	}
 	while (i < argc)
@@ -85,8 +72,7 @@ int		main(int argc, char *argv[])
 		fd = open(argv[i], O_RDONLY);
 		if (fd == -1)
 			ft_exit(ERR_FILE);
-		buff = get_buff(fd);
-		solve_map(buff);
+		solve_map(fd);
 		if (close(fd) < 0)
 			ft_exit(ERR_FILE);
 		i++;

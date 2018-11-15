@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "board_info.h"
+#include "list_methods.h"
 #include "utils.h"
 
 void	print_board(char **board)
@@ -29,48 +30,79 @@ void	print_board(char **board)
 	}
 }
 
-int		*get_width(char *buff)
+int		create_fline_list(t_list **fline, int fd)
 {
-	int		*arr;
-	int		i;
+	int		width;
+	char	c;
 
-	i = 0;
-	arr = malloc(2);
-	while (buff[i] != '\n')
-		i++;
-	i += 1;
-	arr[0] = i;
-	while (buff[i] != '\n')
-		i++;
-	arr[1] = i - arr[0];
-	return (arr);
+	width = 0;
+	while (read(fd, &c, 1) > 0 && c != '\n')
+	{
+		if (!width)
+			*fline = ft_create_elem(c);
+		else
+			ft_list_push_back(fline, c);
+		width++;
+	}
+	return (width);
 }
 
-char	**get_matrix(char *buff, t_board binfo)
+char	*get_arr_from_link(char *str, t_list *fline, t_board binfo)
 {
-	char	**matrix;
-	int		*arr;
-	int		j;
 	int		i;
 
 	i = 0;
-	matrix = malloc(sizeof(char*) * (binfo.lines + 1));
-	arr = get_width(buff);
+	while (fline)
+	{
+		if (!check_valid_char(fline->data, binfo))
+			ft_exit(ERR_VAL_BOARD);
+		str[i++] = fline->data;
+		fline = fline->next;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*get_matrix_arr(char *str, t_board binfo, int fd, int width)
+{
+	int		j;
+	char	c;
+
+	j = 0;
+	while (read(fd, &c, 1) > 0 && c != '\n')
+	{
+		if (!check_valid_char(c, binfo))
+			ft_exit(ERR_VAL_BOARD);
+		str[j++] = c;
+	}
+	if (j != width)
+		ft_exit(ERR_VAL_BOARD);
+	str[j] = '\0';
+	return (str);
+}
+
+char	**get_board_matrix(int fd, t_board binfo)
+{
+	char		**matrix;
+	t_list		*fline;
+	int			width;
+	char		c;
+	int			i;
+
+	i = 0;
+	width = create_fline_list(&fline, fd);
+	matrix = malloc(sizeof(char*) * binfo.lines + 1);
 	while (i < binfo.lines)
 	{
-		j = 0;
-		matrix[i] = malloc(sizeof(char) * (arr[1] + 1));
-		while (buff[arr[0]] != '\n' && buff[arr[0]])
-		{
-			if (!check_valid_char(buff[arr[0]], binfo))
-				ft_exit(ERR_VAL_BOARD);
-			matrix[i][j++] = buff[arr[0]++];
-		}
-		if (j != arr[1])
-			ft_exit(ERR_VAL_BOARD);
-		matrix[i][j] = '\0';
-		arr[0]++;
+		matrix[i] = malloc(sizeof(char) * width + 1);
+		if (i == 0)
+			matrix[i] = get_arr_from_link(matrix[i], fline, binfo);
+		else
+			matrix[i] = get_matrix_arr(matrix[i], binfo, fd, width);
 		i++;
 	}
+	if (read(fd, &c, 1))
+		ft_exit(ERR_VAL_BOARD);
+	matrix[i] = 0;
 	return (matrix);
 }
