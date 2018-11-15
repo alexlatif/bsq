@@ -32,7 +32,7 @@ void	print_board(char **board)
 
 char	*get_arr_from_link(char *str, t_list *fline, t_board binfo)
 {
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (fline)
@@ -51,7 +51,7 @@ char	**get_board_matrix(int fd, t_board binfo)
 	char		**matrix;
 	t_list		*fline;
 	int			width;
-	char 		c;
+	char		c;
 	int			i;
 	int			j;
 

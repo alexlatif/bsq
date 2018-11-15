@@ -25,11 +25,6 @@ test - unsigned ints
 
 //BACKLOG
 
-3)
-42 file errors
-perl map_gen 100 100 2 |
-cat map |
-
 4)
 100% cpu
 
