@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "board_info.h"
+#include "list_methods.h"
 #include "utils.h"
 
 void	print_board(char **board)
@@ -29,48 +30,64 @@ void	print_board(char **board)
 	}
 }
 
-int		*get_width(char *buff)
+char	*get_arr_from_link(char *str, t_list *fline, t_board binfo)
 {
-	int		*arr;
-	int		i;
+	int 	i;
 
 	i = 0;
-	arr = malloc(2);
-	while (buff[i] != '\n')
-		i++;
-	i += 1;
-	arr[0] = i;
-	while (buff[i] != '\n')
-		i++;
-	arr[1] = i - arr[0];
-	return (arr);
+	while (fline)
+	{
+		if (!check_valid_char(fline->data, binfo))
+			ft_exit(ERR_VAL_BOARD);
+		str[i++] = fline->data;
+		fline = fline->next;
+	}
+	str[i] = '\0';
+	return (str);
 }
 
-char	**get_matrix(char *buff, t_board binfo)
+char	**get_board_matrix(int fd, t_board binfo)
 {
-	char	**matrix;
-	int		*arr;
-	int		j;
-	int		i;
+	char		**matrix;
+	t_list		*fline;
+	int			width;
+	char 		c;
+	int			i;
+	int			j;
 
+	width = 0;
+	matrix = malloc(sizeof(char*) * binfo.lines);
+	while (read(fd, &c, 1) > 0 && c != '\n')
+	{
+		if (!width)
+			fline = ft_create_elem(c);
+		else
+			ft_list_push_back(&fline, c);
+		width++;
+	}
 	i = 0;
-	matrix = malloc(sizeof(char*) * (binfo.lines + 1));
-	arr = get_width(buff);
 	while (i < binfo.lines)
 	{
-		j = 0;
-		matrix[i] = malloc(sizeof(char) * (arr[1] + 1));
-		while (buff[arr[0]] != '\n' && buff[arr[0]])
+		matrix[i] = malloc(sizeof(char) * width + 1);
+		if (i == 0)
+			matrix[i] = get_arr_from_link(matrix[i], fline, binfo);
+		else
 		{
-			if (!check_valid_char(buff[arr[0]], binfo))
+			j = 0;
+			while (read(fd, &c, 1) > 0 && c != '\n')
+			{
+				if (!check_valid_char(c, binfo))
+					ft_exit(ERR_VAL_BOARD);
+				matrix[i][j++] = c;
+			}
+			if (j != width)
 				ft_exit(ERR_VAL_BOARD);
-			matrix[i][j++] = buff[arr[0]++];
+			matrix[i][j] = '\0';
 		}
-		if (j != arr[1])
-			ft_exit(ERR_VAL_BOARD);
-		matrix[i][j] = '\0';
-		arr[0]++;
 		i++;
 	}
+	if (read(fd, &c, 1))
+		ft_exit(ERR_VAL_BOARD);
+	matrix[i] = 0;
 	return (matrix);
 }
