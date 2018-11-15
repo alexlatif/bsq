@@ -68,6 +68,7 @@ t_snap	find_snapshot(char **matrix, t_board binfo)
 		}
 		arr[0]++;
 	}
+	free(arr);
 	return (snapshot);
 }
 
@@ -95,7 +96,6 @@ char	**solve_matrix(char **matrix, t_board binfo)
 	t_snap			snapshot;
 
 	snapshot = find_snapshot(matrix, binfo);
-	printf("arr[%d][%d] = %d swipes\n", snapshot.y, snapshot.x, snapshot.swipe);
 	fill_matrix(matrix, snapshot, binfo.full);
 	return (matrix);
 }
