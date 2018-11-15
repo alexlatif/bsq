@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "board_info.h"
-#include "list.h"
+#include "fline_list.h"
 #include "list_methods.h"
 #include "utils.h"
 
