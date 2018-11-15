@@ -21,6 +21,7 @@ typedef struct		s_board
 	char			full;
 	int				no_obs;
 	int				width;
+	int				error;
 }					t_board;
 
 int					check_valid_char(char c, t_board binfo);

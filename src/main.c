@@ -61,15 +61,20 @@ void	solve_map(int fd)
 	char		**matrix;
 	t_board		binfo;
 
-	if (!(header = ft_get_header(&binfo, fd)))
-		ft_exit(ERR_VAL_BOARD);
-	matrix = get_board_matrix(fd, &binfo);
-	if (!binfo.no_obs)
-		matrix = solve_empty(matrix, binfo);
+	binfo.error = 0;
+	if (((header = ft_get_header(&binfo, fd))))
+	{
+		matrix = get_board_matrix(fd, &binfo);
+		if (!binfo.no_obs)
+			matrix = solve_empty(matrix, binfo);
+		else
+			matrix = solve_matrix(matrix, binfo);
+		if (!binfo.error)
+			print_board(matrix);
+		free_board(matrix);
+	}
 	else
-		matrix = solve_matrix(matrix, binfo);
-	print_board(matrix);
-	free_board(matrix);
+		ft_exit(ERR_VAL_BOARD, NULL);
 }
 
 int		main(int argc, char *argv[])
@@ -86,11 +91,14 @@ int		main(int argc, char *argv[])
 	while (i < argc)
 	{
 		fd = open(argv[i], O_RDONLY);
-		if (fd == -1)
-			ft_exit(ERR_FILE);
-		solve_map(fd);
-		if (close(fd) < 0)
-			ft_exit(ERR_FILE);
+		if (fd > -1)
+		{
+			solve_map(fd);
+			if (close(fd) < 0)
+				ft_exit(ERR_FILE, NULL);
+		}
+		else
+			ft_exit(ERR_FILE, NULL);
 		i++;
 	}
 	return (0);

@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_methods.h                                     :+:      :+:    :+:   */
+/*   binfo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alatif <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/14 16:38:55 by alatif            #+#    #+#             */
-/*   Updated: 2018/11/14 16:38:57 by alatif           ###   ########.fr       */
+/*   Created: 2018/11/14 23:21:54 by alatif            #+#    #+#             */
+/*   Updated: 2018/11/14 23:21:57 by alatif           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIST_METHODS_H
-# define LIST_METHODS_H
+#ifndef BINFO_H
+# define BINFO_H
 
-# include "fline_list.h"
-
-void		print_list(t_list *list);
-t_list		*ft_create_elem(char data);
-void		ft_list_push_back(t_list **begin_list, char data);
-void		free_list(t_list **head);
+typedef struct		s_board
+{
+	int				lines;
+	char			empty;
+	char			obstacle;
+	char			full;
+	int				no_obs;
+	int				width;
+	int				error;
+}					t_board;
 
 #endif

@@ -34,11 +34,14 @@ void	print_board(char **board)
 int		create_fline_list(t_list **fline, int fd, t_board *binfo)
 {
 	int		width;
+	int		enter;
 	char	c;
 
 	width = 0;
+	enter = 0;
 	while (read(fd, &c, 1) > 0 && c != '\n')
 	{
+		enter = 1;
 		if (c == binfo->obstacle)
 			binfo->no_obs = 1;
 		if (!width)
@@ -47,6 +50,8 @@ int		create_fline_list(t_list **fline, int fd, t_board *binfo)
 			ft_list_push_back(fline, c);
 		width++;
 	}
+	if (!enter)
+		ft_exit(ERR_VAL_BOARD, binfo);
 	return (width);
 }
 
@@ -58,7 +63,7 @@ char	*get_arr_from_link(char *str, t_list *fline, t_board binfo)
 	while (fline)
 	{
 		if (!check_valid_char(fline->data, binfo))
-			ft_exit(ERR_VAL_BOARD);
+			ft_exit(ERR_VAL_BOARD, &binfo);
 		str[i++] = fline->data;
 		fline = fline->next;
 	}
@@ -77,28 +82,19 @@ char	*get_matrix_arr(char *str, t_board *binfo, int fd, int width)
 	{
 		if (buff[j] == binfo->obstacle)
 			binfo->no_obs = 1;
-		if (!check_valid_char(*buff, *binfo))
-			ft_exit(ERR_VAL_BOARD);
+		if (!check_valid_char(buff[j], *binfo))
+		{
+			ft_exit(ERR_VAL_BOARD, binfo);
+			break ;
+		}
 		j++;
 	}
 	str = buff;
 	if (j != width)
-		ft_exit(ERR_VAL_BOARD);
+		ft_exit(ERR_VAL_BOARD, binfo);
 	binfo->width = width;
 	str[j] = '\0';
 	return (str);
-}
-
-void	free_list(t_list **head)
-{
-	t_list	*tmp;
-
-	while ((*head))
-	{
-		tmp = (*head);
-		free(*head);
-		*head = tmp->next;
-	}
 }
 
 char	**get_board_matrix(int fd, t_board *binfo)
@@ -122,7 +118,7 @@ char	**get_board_matrix(int fd, t_board *binfo)
 		i++;
 	}
 	if (read(fd, &c, 1))
-		ft_exit(ERR_VAL_BOARD);
+		ft_exit(ERR_VAL_BOARD, binfo);
 	matrix[i] = 0;
 	free_list(&fline);
 	return (matrix);

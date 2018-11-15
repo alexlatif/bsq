@@ -21,7 +21,7 @@
 
 char	*ft_strcpy(char *dest, char *src, int length);
 char	*ft_realloc(char *o_string, char ch, int width);
-void	ft_exit(char *message);
+void	ft_exit(char *message, t_board *binfo);
 void	ft_putnbr(int nb);
 void	ft_putstr(char *str);
 void	ft_putchar(char c);

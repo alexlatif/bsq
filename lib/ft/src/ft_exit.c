@@ -12,9 +12,12 @@
 
 #include <stdlib.h>
 #include "puts.h"
+#include "binfo.h"
 
-void	ft_exit(char *message)
+void	ft_exit(char *message, t_board *binfo)
 {
-	ft_putstr(message);
-	exit(1);
+	if (!binfo->error)
+		ft_putstr(message);
+	if (binfo)
+		binfo->error = 1;
 }

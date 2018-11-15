@@ -43,3 +43,15 @@ void	ft_list_push_back(t_list **begin_list, char data)
 		current->next = new_node;
 	}
 }
+
+void	free_list(t_list **head)
+{
+	t_list	*tmp;
+
+	while ((*head))
+	{
+		tmp = (*head);
+		free(*head);
+		*head = tmp->next;
+	}
+}
