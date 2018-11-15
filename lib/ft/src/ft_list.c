@@ -6,14 +6,14 @@
 /*   By: alatif <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 16:36:48 by alatif            #+#    #+#             */
-/*   Updated: 2018/11/14 16:36:54 by alatif           ###   ########.fr       */
+/*   Updated: 2018/11/14 20:54:59 by bmyrzata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "list.h"
 
-t_list		*ft_create_elem(char data)
+t_list	*ft_create_elem(char data)
 {
 	t_list		*tmp;
 
