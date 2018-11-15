@@ -91,6 +91,18 @@ char	**fill_matrix(char **matrix, t_snap snapshot, char full)
 	return (matrix);
 }
 
+char	**solve_empty(char **matrix, t_board binfo)
+{
+	t_snap			snapshot;
+
+	snapshot.x = 0;
+	snapshot.y = 0;
+	snapshot.swipe = (binfo.lines > binfo.width) ? binfo.width - 1 :
+	binfo.lines - 1;
+	fill_matrix(matrix, snapshot, binfo.full);
+	return (matrix);
+}
+
 char	**solve_matrix(char **matrix, t_board binfo)
 {
 	t_snap			snapshot;

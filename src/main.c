@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include "board_methods.h"
@@ -64,9 +63,12 @@ void	solve_map(int fd)
 
 	if (!(header = ft_get_header(&binfo, fd)))
 		ft_exit(ERR_VAL_BOARD);
-	matrix = get_board_matrix(fd, binfo);
-	matrix = solve_matrix(matrix, binfo);
-	//print_board(matrix);
+	matrix = get_board_matrix(fd, &binfo);
+	if (!binfo.no_obs)
+		matrix = solve_empty(matrix, binfo);
+	else
+		matrix = solve_matrix(matrix, binfo);
+	print_board(matrix);
 	free_board(matrix);
 }
 

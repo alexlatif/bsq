@@ -19,6 +19,8 @@ typedef struct		s_board
 	char			empty;
 	char			obstacle;
 	char			full;
+	int				no_obs;
+	int				width;
 }					t_board;
 
 int					check_valid_char(char c, t_board binfo);
