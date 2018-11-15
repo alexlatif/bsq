@@ -43,6 +43,19 @@ int		ft_get_header(t_board *binfo, int fd)
 	return (1);
 }
 
+void	free_board(char **matrix)
+{
+	int i;
+
+	i = 0;
+	while (matrix[i])
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
+}
+
 void	solve_map(int fd)
 {
 	int			header;
@@ -53,7 +66,8 @@ void	solve_map(int fd)
 		ft_exit(ERR_VAL_BOARD);
 	matrix = get_board_matrix(fd, binfo);
 	matrix = solve_matrix(matrix, binfo);
-	print_board(matrix);
+	//print_board(matrix);
+	free_board(matrix);
 }
 
 int		main(int argc, char *argv[])
