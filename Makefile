@@ -10,7 +10,7 @@ LDIR	= lib/ft
 CC	= gcc
 CFLAGS	+= -I $(IDIR) -I $(IDIR_MY)
 CFLAGS	+= -Wall -Wextra
-# CFLAGS	+= -Werror
+CFLAGS	+= -Werror
 
 SRCS_DIR		= src/
 SRCS_FILES		= get_board_matrix.c	\
@@ -27,18 +27,18 @@ RM	= rm -f
 all: $(LIB) $(NAME)
 
 $(LIB):
-	make -C $(LDIR)
+	@make -C $(LDIR)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(OBJS)  -L $(LDIR) -l $(LNAME)
+	@$(CC) -o $(NAME) $(OBJS)  -L $(LDIR) -l $(LNAME)
 
 clean:
-	$(RM) $(OBJS)
-	make -C $(LDIR) clean
+	@$(RM) $(OBJS)
+	@make -C $(LDIR) clean
 
 fclean: clean
-	$(RM) $(NAME)
-	make -C $(LDIR) fclean
+	@$(RM) $(NAME)
+	@make -C $(LDIR) fclean
 
 re: fclean all
 
