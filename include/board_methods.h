@@ -15,8 +15,9 @@
 
 # include "board_info.h"
 
-char		**get_board_matrix(int fd, t_board binfo);
+char		**get_board_matrix(int fd, t_board *binfo);
 void		print_board(char **board);
 char		**solve_matrix(char **matrix, t_board binfo);
+char	    **solve_empty(char **matrix, t_board binfo);
 
 #endif

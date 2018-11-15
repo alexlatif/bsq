@@ -26,6 +26,7 @@ t_board		get_binfo(char *fline)
 	binfo.empty = fline[size - 3];
 	binfo.obstacle = fline[size - 2];
 	binfo.full = fline[size - 1];
+	binfo.no_obs = 0;
 	return (binfo);
 }
 
