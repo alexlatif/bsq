@@ -50,8 +50,8 @@ void	free_board(char **matrix)
 	i = 0;
 	while (matrix[i])
 	{
-	  free(matrix[i]);
-	  i++;
+		free(matrix[i]);
+		i++;
 	}
 	free(matrix);
 }
@@ -78,13 +78,7 @@ int		main(int argc, char *argv[])
 	i = 1;
 	if (argc == 1)
 	{
-		// solve_map(0);
-		fd = open("ex", O_RDONLY);
-		if (fd == -1)
-			ft_exit(ERR_FILE);
-		solve_map(fd);
-		if (close(fd) < 0)
-			ft_exit(ERR_FILE);
+		solve_map(0);
 		return (0);
 	}
 	while (i < argc)
