@@ -84,6 +84,18 @@ char	*get_matrix_arr(char *str, t_board binfo, int fd, int width)
 	return (str);
 }
 
+void	free_list(t_list **head)
+{
+	t_list	*tmp;
+
+	while ((*head))
+	{
+		tmp = (*head);
+		free(*head);
+		*head = tmp->next;
+	}
+}
+
 char	**get_board_matrix(int fd, t_board binfo)
 {
 	char		**matrix;
@@ -107,5 +119,6 @@ char	**get_board_matrix(int fd, t_board binfo)
 	if (read(fd, &c, 1))
 		ft_exit(ERR_VAL_BOARD);
 	matrix[i] = 0;
+	free_list(&fline);
 	return (matrix);
 }

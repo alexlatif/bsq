@@ -66,7 +66,7 @@ void	solve_map(int fd)
 		ft_exit(ERR_VAL_BOARD);
 	matrix = get_board_matrix(fd, binfo);
 	matrix = solve_matrix(matrix, binfo);
-	print_board(matrix);
+	//print_board(matrix);
 	free_board(matrix);
 }
 
